@@ -14,15 +14,19 @@ module.exports = {
                    is_Number = true;
                    return is_Number;
                 }else{
-                    
+                    return is_Number;
                 }
         
         }else{
-
+            return is_Number;
         }      
         }else{
-
+            return is_Number;
         }
     }
+    return is_Number;
 }
 }
+
+// Quelque soit le resultat on return le is_Number
+// Si c'est true alors c'est bon si non l'opération échoue
