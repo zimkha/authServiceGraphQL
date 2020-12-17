@@ -8,7 +8,7 @@ var mongoosePaginate = require('mongoose-paginate');
 var PatientSchema = new mongoose.Schema({
     email: {type: String, default: ''},
     password: String,
-    phone: {type: String, unique: true},
+    phone: {type: String},
     name: {type: String, default: ''},
     
 }, {timestamps: true, toObject: {virtuals: true}, toJSON: {virtuals: true}});

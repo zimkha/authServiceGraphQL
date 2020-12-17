@@ -9,7 +9,7 @@ const  graphqlHTTP  = require('express-graphql');
 const app = express();
 
 const uri =  "mongodb://localhost:27017/serviceauthfd";
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }
+mongoose.connect(uri, {  useMongoClient: true, }
     );
     const connection = mongoose.connection;
     connection.once('open', () => {

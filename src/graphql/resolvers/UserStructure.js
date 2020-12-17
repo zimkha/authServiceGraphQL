@@ -1,10 +1,10 @@
 const bcrypt      = require('bcrypt-nodejs');
 const tokenAccess = require('./token')
-const UserModel = require('../types/StructureUserType')
+const User = require('../../models/UserStructureModel')
 
 class UserController {
     constructor(model){
-        this.model = UserModel();
+        this.model = User();
     }
      authenticate(options){
         return this.model.findOne({phone: options.phone})
