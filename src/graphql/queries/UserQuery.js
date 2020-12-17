@@ -3,9 +3,6 @@ const auth = require('../../config/auth');
 
 const {
 	GraphQLList,
-	GraphQLID,
-    GraphQLString,
-	GraphQLNonNull,
 } = GraphQL;
 
 
@@ -22,7 +19,7 @@ module.exports = {
                     type: new GraphQLList(PatientType),
                     description: 'This will return all the patients present in the database',
                     resolve(parent, args, context, info) {
-                        return PatientResoPatientTypelver.allPatients({});
+                        return PatientResolver.allPatients({});
                     }
                 
             }
@@ -49,7 +46,7 @@ module.exports = {
             return {
                     type : PatientType,
                     resolve(parent, args, context , info){
-                        return PatientType.getOne(args.id);
+                        return PatientResolver.getOne(args.id);
                     }
             }
         },
