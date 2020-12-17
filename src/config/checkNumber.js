@@ -5,7 +5,7 @@ module.exports = {
         let is_Number = false;
         if(string_number){
             string_number = string_number.split(" ").join(""); 
-           if(string_number.length == 9){
+          
                if(string_number.substr(0, 2) == '75' || string_number.substr(0, 2) == '76' || string_number.substr(0, 2) == '77'
                || string_number.substr(0, 2) == '77' || string_number.substr(0, 2) == '78' || string_number.substr(0, 2) == '33' )
                {
@@ -20,9 +20,7 @@ module.exports = {
         }else{
             return is_Number;
         }      
-        }else{
-            return is_Number;
-        }
+       
     }
     return is_Number;
 }

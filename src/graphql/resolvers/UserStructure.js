@@ -78,6 +78,23 @@ class UserController {
                  if(data.firstname) record.firstname = data.firstname;
                  if(data.lastname) record.lastname = data.lastname;
     }
+    getOne(user){
+        return this.model.findOne({_id: user.id})
+        .exec()
+        .then((record) => {
+            return record.save()
+                .then(user => {
+                    return user
+                })
+                .catch((error) => {
+                    return error;
+                });
+
+        })
+        .catch((error) => {
+            return error;
+        });
+    }
 
 }
 

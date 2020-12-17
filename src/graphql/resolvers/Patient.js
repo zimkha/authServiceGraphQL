@@ -88,6 +88,23 @@ class PatientController {
                 return error;
             });
     }
+    getOne(user){
+        return this.model.findOne({_id: user.id})
+        .exec()
+        .then((record) => {
+            return record.save()
+                .then(user => {
+                    return user
+                })
+                .catch((error) => {
+                    return error;
+                });
+
+        })
+        .catch((error) => {
+            return error;
+        });
+    }
 }
 
 const patient_ctrl  = new PatientController();

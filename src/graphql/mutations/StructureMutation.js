@@ -4,7 +4,7 @@ var validator = require('validator');
 const auth = require('../../config/auth');
 const option = require('../../config/options');
 const Generic = require('../types/GenericType');
-const { verifyNumber } = require('../../config/checkNumber');
+
 
 const {
     GraphQLNonNull,
@@ -14,14 +14,14 @@ const {
     GraphQLList
 } = GraphQL;
 
-const PatientType = require('../types/PatientType');
-const PatientResolver = require('../resolvers/Patient');
+const UserType = require('../types/StructureUserType');
+const UserResolver = require('../resolvers/UserStructure');
 
 module.exports = {
    login() {
         return {
-            type: PatientType,
-            description: 'Login a Patient',
+            type: UserType,
+            description: 'Login a user',
             args: {
                 phone: {
                     type: new GraphQLNonNull(GraphQLString),
@@ -33,13 +33,13 @@ module.exports = {
                 }
             },
             resolve(parent, fields) {
-               return PatientResolver.authenticate(fields);
+               return UserResolver.authenticate(fields);
             }
         }
     },
     create(){
         return {
-            type: PatientType,
+            type: UserType,
             description: 'add new Patient',
             args: {
                 phone: {
@@ -57,17 +57,15 @@ module.exports = {
                 }
             },
             resolve(parent, fields) {
-                if (!validator.isMobilePhone(fields.mobileNumber, option.mobileNumberLocale)) {
-                    throw new Error("Invalid mobile number!");
-                }
-                if(!verifyNumber(fields.mobileNumber)){
-                    throw new Error("Invalid mobile number!");
-                }
-
                 if (!validator.isLength(fields.password, {min: option.minPasswordLength, max: undefined})) {
                     throw new Error("Your password should be greater then " + option.minPasswordLength + " characters!");
                 }
-               return PatientResolver.create(fields);
+                if (!validator.isMobilePhone(fields.mobileNumber, option.mobileNumberLocale)) {
+                    throw new Error("Invalid mobile number!");
+                }
+
+               
+               return UserResolver.create(fields);
             }
         }
     }

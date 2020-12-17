@@ -38,7 +38,10 @@ module.exports = {
 
         SingleUser(){
             return {
-
+                type : UserType,
+                resolve(parent, args, context , info){
+                    return UserResolver.getOne(args.id);
+                }
             }
         },
 
