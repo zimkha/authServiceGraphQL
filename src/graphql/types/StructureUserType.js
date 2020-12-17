@@ -2,12 +2,13 @@ const GraphQL = require('graphql');
 const {
 	GraphQLString,
 	GraphQLID,
-	GraphQLObjectType
+	GraphQLObjectType,
+	GraphQLList
 } = GraphQL;
 
 
-const PatientType = new GraphQLObjectType({
-    name: 'Patient',
+const StructureUserType = new GraphQLObjectType({
+    name: 'UserStructure',
 	description: 'Patient type for managing all the patients in our application.',
 
 	fields: () => ({
@@ -27,6 +28,9 @@ const PatientType = new GraphQLObjectType({
         password: {
 			type: GraphQLString,
 			description: 'Gender of the patient',
+        },
+        role : {
+			type : GraphQLString,
 		},
 		createdAt: {
 			type: GraphQLString,
@@ -38,7 +42,6 @@ const PatientType = new GraphQLObjectType({
 		}
 
 	})
-
 });
 
-module.exports = PatientType;
+module.exports = StructureUserType;

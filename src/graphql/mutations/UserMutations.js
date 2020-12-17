@@ -18,7 +18,7 @@ const PatientType = require('../types/PatientType');
 const PatientResolver = require('../resolvers/Patient');
 
 module.exports = {
-    login() {
+   login() {
         return {
             type: PatientType,
             description: 'Login a Patient',

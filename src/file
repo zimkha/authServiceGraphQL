@@ -1,0 +1,132 @@
+{
+    username: {type: String},
+    password: {type: String},
+    firstName: {type: String},
+    lastName: {type: String},
+    birthDate: {type: Date},
+    phone:  {type: String},
+    email: {type: String},
+    genre: {type: String, enum: ['homme','femme']},
+    adress: {
+        name: {type: String},
+        geo: {
+            lat: Number,
+            lng: Number
+        }
+    },
+    healthSheet: {
+        weight: Number,
+        size: Number,
+        bloodGroup: {type: String, enum: ['O+','O-']},
+        questions: [
+             {
+                 question: String,
+                 response: Boolean
+             }
+         ]
+    },
+    chat: [
+        {
+            praticienID: Schema.Types.ObjectId,
+            text: {type: String},
+            date: {type: Date, default: Date.now}
+        }
+    ],
+    orders: [
+        {
+            order_pdf_url: {type: String},
+            date: {type: Date, default: Date.now}
+        }
+    ]
+ }
+
+
+ medecin
+ {
+    username: {type: String},
+    password: {type: String},
+    active: {type: Boolean},
+    firstName: {type: String},
+    lastName: {type: String},
+    birthDate: {type: Date},
+    phone: {type: String},
+    email: {type: String},
+    genre: {type: String, enum: ['Homme', 'Femme']},
+    specialite: {type: String},
+    link_url: {type: String}, //link to display doctor page in freedocteur value {timestamp-prenom-nom}
+    assurances: [String],
+    img_url: {type: String},
+    description: {type: String},
+    ville: {type: String},
+    adresse: {
+        name: {type: String},
+        geo: {
+            lat: {type: String},
+            lng: {type: String}
+        }
+    },
+    items: [
+     {
+         description: {type: String},
+         price: {type: Number},
+         duree:{type:String }
+     }
+    ],
+    num_rdv: {type: Number},
+    currentSouscription: {type: String, enum: ['F1','F2','F3']},
+    billing: [
+        {
+            start: {type: Date},
+            expire: {type: Date},
+            formule: {type: String, enum: ['F1','F2','F3']},
+            amount: {type: Number}
+        }
+    ],
+    my_patients: [ //Pour la programmation de rendez-vous - patients qui ne passent pas sur freedocteur
+        {
+            fullName: {type: String},
+            phoneOrEmail: {type: String}
+        }
+    ]
+ });
+ 23 h 14
+ Agenda  à ajouter
+ 23 h 14
+ RDV
+ {
+     praticienID: Schema.Types.ObjectId,
+     Date: {type: Date},
+     status: {type: String, enum: ['waiting','cancel','valid'], default: 'waiting'},
+     private_notes: {type: string},
+     public_notes: {type: string},
+     owner : {
+         praticientID: Schema.Types.ObjectId,
+         fisrtname: {type: string},
+         lastName: {type: string},
+         email: {type: string},
+         phone: {type: string}
+     },
+     motif: {type: string}
+ })
+ 23 h 15
+ Orders
+ {
+     praticienId: Schema.Types.ObjectId,
+     patientId: Schema.Types.ObjectId,
+     items: [
+         {
+             item: {type: String},
+         }
+     ],
+     order_pdf_url: {type: String},
+ });
+ 23 h 15
+ newsletter
+ {
+     newsletter: [
+         {
+             email: {type: String},
+             date: {type: Date, default: Date.now}
+         }
+     ]
+ });

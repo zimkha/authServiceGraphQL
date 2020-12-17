@@ -12,6 +12,9 @@ const {
 const PatientType = require('../types/PatientType');
 const PatientResolver = require('../resolvers/Patient');
 
+const UserType = require('../types/StructureUserType');
+const UserResolver = require('../resolvers/UserStructure');
+
 
 module.exports = {
         allPatient() {
@@ -24,13 +27,16 @@ module.exports = {
                 
             }
         },
-        allDoctor(){
+        allUser(){
             return {
-
+                type: new GraphQLList(UserType),
+                resolve(parent, args, context, info){
+                     return UserResolver.all();
+                }
             }
         },
 
-        SingleDoctor(){
+        SingleUser(){
             return {
 
             }

@@ -5,39 +5,41 @@ var _ = require('lodash');
 var mongoosePaginate = require('mongoose-paginate');
 
 
-var PatientSchema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
     email: {type: String, default: ''},
     password: String,
     phone: {type: String, unique: true},
-    name: {type: String, default: ''},
+    role: {type: String, default: ''},
+    firstname: {type: String, default: ''},
+    lastname: {type: String, default: ''},
     
 }, {timestamps: true, toObject: {virtuals: true}, toJSON: {virtuals: true}});
 
 /**
  * Password hash middleware.
  */
-PatientSchema.pre('save', function (next) {
-    var patient = this;
-    if (!patient.isModified('password')) {
+UserSchema.pre('save', function (next) {
+    var user = this;
+    if (!user.isModified('password')) {
         return next();
     }
     bcrypt.genSalt(10, function (err, salt) {
         if (err) {
             return next(err);
         }
-        bcrypt.hash(patient.password, salt, null, function (err, hash) {
+        bcrypt.hash(user.password, salt, null, function (err, hash) {
             if (err) {
                 return next(err);
             }
-            patient.password = hash;
+            user.password = hash;
             next();
         });
     });
 });
 
-PatientSchema.plugin(mongoosePaginate);
+UserSchema.plugin(mongoosePaginate);
 
-var Patient = mongoose.model('Patient', PatientSchema);
+var User = mongoose.model('User', UserSchema);
 
 
-module.exports = Patient;
+module.exports = User;
