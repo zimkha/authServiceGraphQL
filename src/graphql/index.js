@@ -3,14 +3,18 @@ const {
 	GraphQLObjectType
 } = GraphQL;
 
-const PatientQuery = require('../graphql/queries/UserQuery');
 const UserMutation = require('../graphql/mutations/UserMutations')
+const UserQuery    = require('../graphql/queries/UserQuery')
+const StructureMutation = require('../graphql/mutations/StructureMutation');
 
 const RootQuery = new GraphQLObjectType({
 	name : 'RootQueryType',
 	description : '',
 	fields : {
-       patients : PatientQuery.allPatient
+	   patients : UserQuery.allPatient(),
+	   users:   UserQuery.allUser(),
+	   patient: UserQuery.SinglePatient(),
+	   user  : UserQuery.SingleUser()
 	}
 });
 
@@ -19,8 +23,10 @@ const RootMutation = new GraphQLObjectType({
 	name: 'Mutation',
 	description: 'Default mutation provided by the backend APIs',
 	fields: {
-	 login : UserMutation.login,
-	 create: UserMutation.create
+	 loginPatient : UserMutation.login(),
+	 createPatient: UserMutation.create(),
+	 loginUser    : StructureMutation.login(),
+	 createUser   : StructureMutation.create()
 	}
 });
 
