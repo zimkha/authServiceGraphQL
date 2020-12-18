@@ -7,7 +7,7 @@ class UserController {
         this.model = User();
     }
      authenticate(options){
-        return this.model.findOne({phone: options.phone})
+        return User.findOne({phone: options.phone})
                 .exec()
                     .then((user) => {
                         if(!user)  return new Error('Invalid login credentials.');
@@ -22,7 +22,7 @@ class UserController {
                     });
     }
      create(data){
-        const record = new this.model(data);
+        const record = new User(data);
         return record.save()
             .then((patient) => {
                 return patient.save()
@@ -38,18 +38,18 @@ class UserController {
             });
     }
      all(){
-        return this.model.find()
-        .sort('createdAt')
-        .exec()
-        .then(records => {
-            return records;
-        })
-        .catch(error => {
-            return error;
-        });
+        return User.find()
+        .sort('createdAt')  
+             .exec()
+                .then(records => {
+                    return records;
+                })
+                .catch(error => {
+                    return error;
+                });
     }
      update(user, data) {
-        return this.model.findOne({_id: user.id})
+        return User.findOne({_id: user.id})
             .exec()
             .then((record) => {
                  if(data.password != null){
@@ -79,7 +79,7 @@ class UserController {
                  if(data.lastname) record.lastname = data.lastname;
     }
     getOne(user){
-        return this.model.findOne({_id: user.id})
+        return User.findOne({_id: user.id})
         .exec()
         .then((record) => {
             return record.save()
