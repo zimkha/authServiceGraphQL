@@ -26,10 +26,11 @@ app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
 
 app.use(bodyParser.urlencoded({ extended: false }))
-
+let query = schema.query;
+let mutation = schema.mutation
 app.use('/graphql', graphqlHTTP({
-    schema : schema.query,
-    rootValue : schema.mutation,
+    schema : query,
+    rootValue : mutation,
     graphiql: true,
     pretty: true,
     headers: {

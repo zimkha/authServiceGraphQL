@@ -15,8 +15,8 @@ const UserType = require('../types/StructureUserType');
 const UserResolver = require('../resolvers/UserStructure');
 
 
-let schema = new GraphQLSchema({
-    query: new GraphQLObjectType({
+// let schema = new GraphQLSchema({
+   const Userquery = new GraphQLObjectType({
         name : 'RoutQuery',
         fields: () => ({
             patients: {
@@ -49,9 +49,9 @@ let schema = new GraphQLSchema({
             }
          
         })
-    })
+    });
  
-});
+// });
 
-module.exports = schema
+module.exports = Userquery
 

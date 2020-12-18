@@ -3,7 +3,7 @@ const {
 	GraphQLObjectType
 } = GraphQL;
 
-const UserMutation = require('../graphql/mutations/UserMutations')
+const UserMutation = require('./mutations/PatientMutations')
 const UserQuery    = require('../graphql/queries/UserQuery')
 const StructureMutation = require('../graphql/mutations/StructureMutation');
 
