@@ -9,9 +9,6 @@ const { verifyNumber } = require('../../config/checkNumber');
 const {
     GraphQLNonNull,
     GraphQLString,
-    GraphQLInt,
-    GraphQLID,
-    GraphQLList
 } = GraphQL;
 
 const PatientType = require('../types/PatientType');
@@ -32,7 +29,7 @@ module.exports = {
                     description: 'Enter password, will be automatically hashed',
                 }
             },
-            resolve(parent, fields) {
+            resolve(root, fields) {
                return PatientResolver.authenticate(fields);
             }
         }
@@ -56,7 +53,7 @@ module.exports = {
                     description: 'Enter password, will be automatically hashed',
                 }
             },
-            resolve(parent, fields) {
+            resolve(root, fields) {
                 if (!validator.isMobilePhone(fields.mobileNumber, option.mobileNumberLocale)) {
                     throw new Error("Invalid mobile number!");
                 }

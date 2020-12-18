@@ -11,10 +11,7 @@ const RootQuery = new GraphQLObjectType({
 	name : 'RootQueryType',
 	description : '',
 	fields : {
-	   patients : UserQuery.allPatient(),
-	   users:   UserQuery.allUser(),
-	   patient: UserQuery.SinglePatient(),
-	   user  : UserQuery.SingleUser()
+	   patients : UserQuery.patients,
 	}
 });
 
@@ -24,9 +21,9 @@ const RootMutation = new GraphQLObjectType({
 	description: 'Default mutation provided by the backend APIs',
 	fields: {
 	 loginPatient : UserMutation.login(),
-	 createPatient: UserMutation.create(),
-	 loginUser    : StructureMutation.login(),
-	 createUser   : StructureMutation.create()
+	//  createPatient: UserMutation.create(),
+	//  loginUser    : StructureMutation.login(),
+	//  createUser   : StructureMutation.create()
 	}
 });
 

@@ -2,7 +2,9 @@ const GraphQL = require('graphql');
 const auth = require('../../config/auth');
 
 const {
-	GraphQLList,
+    GraphQLList,
+    GraphQLObjectType,
+    GraphQLSchema
 } = GraphQL;
 
 
@@ -13,43 +15,43 @@ const UserType = require('../types/StructureUserType');
 const UserResolver = require('../resolvers/UserStructure');
 
 
-module.exports = {
-        allPatient() {
-            return {
-                    type: new GraphQLList(PatientType),
-                    description: 'This will return all the patients present in the database',
-                    resolve(parent, args, context, info) {
-                        return PatientResolver.allPatients({});
-                    }
-                
-            }
-        },
-        allUser(){
-            return {
+let schema = new GraphQLSchema({
+    query: new GraphQLObjectType({
+        name : 'RoutQuery',
+        fields: () => ({
+            patients: {
+                type: new GraphQLList(PatientType),
+                description : 'all patients',
+                resolve: (parent, args, context, info) => {
+                    return PatientResolver.allPatients({});
+                }
+            },
+            users: {
                 type: new GraphQLList(UserType),
-                resolve(parent, args, context, info){
-                     return UserResolver.all();
+                description : 'all users or patients',
+                resolve: (parent, args, context, info) => {
+                    return UserResolver.allPatients({});
                 }
-            }
-        },
-
-        SingleUser(){
-            return {
+            },
+            singleUser: {
                 type : UserType,
-                resolve(parent, args, context , info){
-                    return UserResolver.getOne(args.id);
+                description: '',
+                resolve : (parent, args, context , info) => {
+                    return UserResolver.getOne(args.id)
+                }
+            },
+            singlePatient : {
+                type : PatientType,
+                description: '',
+                resolve : (parent, args, context , info) => {
+                    return PatientResolver.getOne(args.id)
                 }
             }
-        },
+         
+        })
+    })
+ 
+});
 
-        SinglePatient(){
-            return {
-                    type : PatientType,
-                    resolve(parent, args, context , info){
-                        return PatientResolver.getOne(args.id);
-                    }
-            }
-        },
-       
+module.exports = schema
 
-};

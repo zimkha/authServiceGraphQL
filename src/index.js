@@ -8,6 +8,7 @@ const  graphqlHTTP  = require('express-graphql');
 
 const app = express();
 
+// Connexion a MongoDB
 const uri =  "mongodb://localhost:27017/serviceauthfd";
 mongoose.connect(uri, {  useMongoClient: true, }
     );
@@ -16,6 +17,7 @@ mongoose.connect(uri, {  useMongoClient: true, }
       console.log("MongoDB database connection established successfully");
     });
 mongoose.set('debug', true);
+// End 
 dotenv.load({path: '.env'});
 
 
@@ -30,6 +32,10 @@ app.use('/graphql', graphqlHTTP({
     rootValue : schema.mutation,
     graphiql: true,
     pretty: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
   }));
   
 

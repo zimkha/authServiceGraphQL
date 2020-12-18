@@ -1,17 +1,12 @@
 const GraphQL = require('graphql');
 var validator = require('validator');
 
-const auth = require('../../config/auth');
 const option = require('../../config/options');
-const Generic = require('../types/GenericType');
 
 
 const {
     GraphQLNonNull,
     GraphQLString,
-    GraphQLInt,
-    GraphQLID,
-    GraphQLList
 } = GraphQL;
 
 const UserType = require('../types/StructureUserType');
@@ -32,7 +27,7 @@ module.exports = {
                     description: 'Enter password, will be automatically hashed',
                 }
             },
-            resolve(parent, fields) {
+            resolve(root, fields) {
                return UserResolver.authenticate(fields);
             }
         }
@@ -40,23 +35,27 @@ module.exports = {
     create(){
         return {
             type: UserType,
-            description: 'add new Patient',
+            description: 'add new user',
             args: {
                 phone: {
                     type: new GraphQLNonNull(GraphQLString),
                     description: 'Mobile number cannot be left empty',
                 },
                 email: {
-                    type: new GraphQLNonNull(GraphQLString),
+                    type: GraphQLString,
                     description: 'email cannot be left empty',
                 },
 
                 password: {
                     type: new GraphQLNonNull(GraphQLString),
                     description: 'Enter password, will be automatically hashed',
+                },
+                role : {
+                    type: GraphQLString,
+                    description: 'role of user',
                 }
             },
-            resolve(parent, fields) {
+            resolve(root, fields) {
                 if (!validator.isLength(fields.password, {min: option.minPasswordLength, max: undefined})) {
                     throw new Error("Your password should be greater then " + option.minPasswordLength + " characters!");
                 }
