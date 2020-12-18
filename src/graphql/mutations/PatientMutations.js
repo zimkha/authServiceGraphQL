@@ -67,5 +67,20 @@ module.exports = {
                return PatientResolver.create(fields);
             }
         }
-    }
+    },
+    resetPasswordPatient(){
+        return {
+            type: UserType,
+            args: {
+                phone: {
+                    type: new GraphQLNonNull(GraphQLString),
+                    description: 'Mobile number cannot be left empty',
+                },
+                password: {
+                    type: new GraphQLNonNull(GraphQLString),
+                    description: 'Enter password, will be automatically hashed',
+                }
+            }
+        }
+    },
 }

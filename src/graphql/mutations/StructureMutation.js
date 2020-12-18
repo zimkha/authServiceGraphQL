@@ -11,6 +11,7 @@ const {
 
 const UserType = require('../types/StructureUserType');
 const UserResolver = require('../resolvers/UserStructure');
+const PatientType = require('../types/PatientType');
 
 module.exports = {
    login() {
@@ -67,5 +68,27 @@ module.exports = {
                return UserResolver.create(fields);
             }
         }
+    },
+  
+    resetPasswordUser(){
+        return {
+            type: PatientType,
+            args : {
+                phone: {
+                    type: new GraphQLNonNull(GraphQLString),
+                    description: 'Mobile number cannot be left empty',
+                },
+                password: {
+                    type: new GraphQLNonNull(GraphQLString),
+                    description: 'Enter password, will be automatically hashed',
+                }
+            },
+            resolve(root, fields){
+                if (!validator.isLength(fields.password, {min: option.minPasswordLength, max: undefined})) {
+                    throw new Error("Your password should be greater then " + option.minPasswordLength + " characters!");
+                }
+                
+            }
+            }
+        }
     }
-}

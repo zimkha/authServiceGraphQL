@@ -95,6 +95,26 @@ class UserController {
             return error;
         });
     }
+    resetPassword(data){
+        if(!data.password || !data.phone){
+            return "unexpected data, please check the password or the number phone";
+        }
+        return this.model.findOne({phone : data.phone})
+            .exec()
+                .then((record) => {
+                    record.password = data.password
+                    return record.save()
+                        .then(user => {
+                            return user
+                        })
+                         .catch((err) => {
+                             return err
+                         })
+                })
+                .catch((err) => {
+                    return err
+                })
+    }
 
 }
 

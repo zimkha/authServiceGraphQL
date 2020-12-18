@@ -31,7 +31,7 @@ module.exports = {
     },
     singlePatient() {
         return {
-            type :  new PatientType,
+            type :   PatientType,
                 description: '',
                 resolve : (parent, args, context , info) => {
                     return PatientType.getOne(args.id)
@@ -40,7 +40,7 @@ module.exports = {
     },
     singleUser() {
         return {
-            type :  new UserType,
+            type :   UserType,
                 description: '',
                 resolve : (parent, args, context , info) => {
                     return UserResolver.getOne(args.id)
