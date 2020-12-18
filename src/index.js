@@ -1,5 +1,5 @@
 const express = require('express');
-//const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 const schema = require('./graphql/index')
@@ -25,7 +25,9 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(logger('dev'));
 
-// app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 5000}));
+app.use(bodyParser.json({limit: '50mb'}));
+
 app.use('/graphql', graphqlHTTP({
     schema : schema,
     graphiql: true,
