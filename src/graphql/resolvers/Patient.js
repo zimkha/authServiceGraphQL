@@ -25,7 +25,7 @@ class PatientController {
                     });
     }
 
-    static  allPatients() {
+      allPatients() {
         return this.model.find()
             .sort('createdAt')
             .exec()

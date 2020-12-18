@@ -5,9 +5,9 @@ const dotenv = require('dotenv');
 const schema = require('./graphql/index')
 const mongoose = require('mongoose');
 const  graphqlHTTP  = require('express-graphql');
-
+const cors = require('cors')
 const app = express();
-
+app.use(cors())
 // Connexion a MongoDB
 const uri =  "mongodb://localhost:27017/serviceauthfd";
 mongoose.connect(uri, {  useMongoClient: true, }
@@ -29,8 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 let query = schema.query;
 let mutation = schema.mutation
 app.use('/graphql', graphqlHTTP({
-    schema : query,
-    rootValue : mutation,
+    schema : schema,
     graphiql: true,
     pretty: true,
     headers: {
@@ -38,6 +37,12 @@ app.use('/graphql', graphqlHTTP({
       'Accept': 'application/json',
     }
   }));
+  app.head('/graphql', (req, res) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Request-Method', 'GET, POST');
+    res.header('Access-Control-Allow-Headers', 'Origin, Accept, Content-Type, Content-Length');
+    res.end();
+  });
   
 
 app.listen(app.get('port'), function () {

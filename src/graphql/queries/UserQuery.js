@@ -3,8 +3,6 @@ const auth = require('../../config/auth');
 
 const {
     GraphQLList,
-    GraphQLObjectType,
-    GraphQLSchema
 } = GraphQL;
 
 
@@ -14,44 +12,40 @@ const PatientResolver = require('../resolvers/Patient');
 const UserType = require('../types/StructureUserType');
 const UserResolver = require('../resolvers/UserStructure');
 
-
-// let schema = new GraphQLSchema({
-   const Userquery = new GraphQLObjectType({
-        name : 'RoutQuery',
-        fields: () => ({
-            patients: {
-                type: new GraphQLList(PatientType),
-                description : 'all patients',
-                resolve: (parent, args, context, info) => {
-                    return PatientResolver.allPatients({});
+module.exports = {
+    patients() {
+        return {
+            type: new GraphQLList(PatientType),
+            resolve: (parent, args, context, info) => {
+                return PatientResolver.allPatients({});
+                 }
+        }
+    },
+    users(){
+        return {
+            type: new GraphQLList(UserType),
+            resolve: (parent, args, context, info) => {
+                return UserResolver.all({});
+                 }
+        }
+    },
+    singlePatient() {
+        return {
+            type :  new PatientType,
+                description: '',
+                resolve : (parent, args, context , info) => {
+                    return PatientType.getOne(args.id)
                 }
-            },
-            users: {
-                type: new GraphQLList(UserType),
-                description : 'all users or patients',
-                resolve: (parent, args, context, info) => {
-                    return UserResolver.allPatients({});
-                }
-            },
-            singleUser: {
-                type : UserType,
+        }
+    },
+    singleUser() {
+        return {
+            type :  new UserType,
                 description: '',
                 resolve : (parent, args, context , info) => {
                     return UserResolver.getOne(args.id)
                 }
-            },
-            singlePatient : {
-                type : PatientType,
-                description: '',
-                resolve : (parent, args, context , info) => {
-                    return PatientResolver.getOne(args.id)
-                }
-            }
-         
-        })
-    });
- 
-// });
-
-module.exports = Userquery
+        }
+    }
+}
 
