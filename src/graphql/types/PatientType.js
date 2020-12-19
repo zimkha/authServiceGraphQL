@@ -30,6 +30,10 @@ const PatientType = new GraphQLObjectType({
 				type: GraphQLString,
 				description: 'Gender of the patient',
 			},
+			token: {
+				type: GraphQLString,
+				description: 'Status of the user, whether active or disabled',
+			},
 			createdAt: {
 				type: GraphQLString,
 				description: 'Generate system to allow patient to have secure resource access',

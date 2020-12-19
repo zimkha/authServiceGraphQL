@@ -1,7 +1,6 @@
 const GraphQL = require('graphql');
 var validator = require('validator');
 
-const auth = require('../../config/auth');
 const option = require('../../config/options');
 const Generic = require('../types/GenericType');
 const { verifyNumber } = require('../../config/checkNumber');

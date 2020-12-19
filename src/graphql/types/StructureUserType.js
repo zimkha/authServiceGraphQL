@@ -29,6 +29,10 @@ const {
 				type: GraphQLString,
 				description: 'Gender of the patient',
 			},
+			token: {
+				type: GraphQLString,
+				description: 'Status of the user, whether active or disabled',
+			},
 			role : {
 				type : GraphQLString,
 			},
