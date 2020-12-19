@@ -12,6 +12,13 @@ var UserSchema = new mongoose.Schema({
     role: {type: String, default: ''},
     firstname: {type: String, default: ''},
     lastname: {type: String, default: ''},
+    structure: [
+        {
+            name :{type: String},
+            adresse : {type: String},
+            phone: {type: String}
+        } 
+    ]
     
 }, {timestamps: true, toObject: {virtuals: true}, toJSON: {virtuals: true}});
 

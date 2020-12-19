@@ -10,7 +10,7 @@ class PatientController {
 
 
     authenticate(options){
-        return this.model.findOne({phone: options.phone})
+        return Patient.findOne({phone: options.phone})
                 .exec()
                     .then((patient) => {
                         if(!patient)  return new Error('Invalid login credentials.');
@@ -26,7 +26,7 @@ class PatientController {
     }
 
       allPatients() {
-        return this.model.find()
+        return Patient.find()
             .sort('createdAt')
             .exec()
             .then(records => {
@@ -37,7 +37,7 @@ class PatientController {
             });
     }
      create(data) {
-        const record = new this.model(data);
+        const record = new Patient(data);
         return record.save()
             .then((patient) => {
                 return patient.save()
@@ -67,7 +67,7 @@ class PatientController {
         return null;
     }
      update(user, data) {
-        return this.model.findOne({_id: user.id})
+        return Patient.findOne({_id: user.id})
             .exec()
             .then((record) => {
                  if(data.password != null){
@@ -89,7 +89,7 @@ class PatientController {
             });
     }
     getOne(user){
-        return this.model.findOne({_id: user.id})
+        return Patient.findOne({_id: user.id})
         .exec()
         .then((record) => {
             return record.save()
@@ -109,7 +109,7 @@ class PatientController {
         if(!data.password || !data.phone){
             return "unexpected data, please check the password or the number phone";
         }
-        return this.model.findOne({phone : data.phone})
+        return Patient.findOne({phone : data.phone})
             .exec()
                 .then((record) => {
                     record.password = data.password

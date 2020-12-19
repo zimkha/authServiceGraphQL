@@ -1,6 +1,7 @@
 const bcrypt      = require('bcrypt-nodejs');
 const tokenAccess = require('./token')
 const User = require('../../models/UserStructureModel')
+const {includeAccessToken} = require('./token')
 
 class UserController {
     constructor(model){
@@ -12,7 +13,7 @@ class UserController {
                     .then((user) => {
                         if(!user)  return new Error('Invalid login credentials.');
                         if(bcrypt.compareSync(options.password, patient.password)){
-                            return tokenAccess.includeAccessToken(user)
+                            return includeAccessToken(user)
                         }
                         else{
                             return new Error('Invalid login credentials.');
@@ -22,20 +23,31 @@ class UserController {
                     });
     }
      create(data){
-        const record = new User(data);
-        return record.save()
-            .then((patient) => {
-                return patient.save()
-                    .then(updated => {
-                        return includeAccessToken(updated);
-                    })
-                    .catch((error) => {
-                        return error;
-                    });
-            })
-            .catch((error) => {
-                return error;
-            });
+    //      let erreur = null;
+    //   const pre_record = User.findOne({phone: data.phone}).exec()
+    //      if(pre_record){
+    //          erreur =  "error , this number mobile exist";
+    //      }
+    //      if(!erreur){
+            const record = new User(data);
+            return record.save()
+                .then((patient) => {
+                    return patient.save()
+                        .then(updated => {
+                            return includeAccessToken(updated);
+                        })
+                        .catch((error) => {
+                            return error;
+                        });
+                })
+                .catch((error) => {
+                    return error;
+                });
+        //  }
+        //  else{
+        //     return erreur;
+        //  }
+       
     }
      all(){
         return User.find()

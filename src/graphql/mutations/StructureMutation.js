@@ -60,10 +60,6 @@ module.exports = {
                 if (!validator.isLength(fields.password, {min: option.minPasswordLength, max: undefined})) {
                     throw new Error("Your password should be greater then " + option.minPasswordLength + " characters!");
                 }
-                if (!validator.isMobilePhone(fields.mobileNumber, option.mobileNumberLocale)) {
-                    throw new Error("Invalid mobile number!");
-                }
-
                
                return UserResolver.create(fields);
             }
