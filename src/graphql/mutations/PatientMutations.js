@@ -54,10 +54,7 @@ module.exports = {
                 }
             },
             resolve(root, fields) {
-                if (!validator.isMobilePhone(fields.mobileNumber, option.mobileNumberLocale)) {
-                    throw new Error("Invalid mobile number!");
-                }
-                if(!verifyNumber(fields.mobileNumber)){
+                if(verifyNumber(fields.mobileNumber)){
                     throw new Error("Invalid mobile number!");
                 }
 

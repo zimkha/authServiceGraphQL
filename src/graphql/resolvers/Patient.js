@@ -1,6 +1,6 @@
 const Patient = require('../../models/PatientModel');
 const bcrypt      = require('bcrypt-nodejs');
-const tokenAccess = require('./token')
+const {includeAccessToken} = require('./token')
 
 
 class PatientController {
@@ -15,7 +15,7 @@ class PatientController {
                     .then((patient) => {
                         if(!patient)  return new Error('Invalid login credentials.');
                         if(bcrypt.compareSync(options.password, patient.password)){
-                            return tokenAccess.includeAccessToken(patient)
+                            return includeAccessToken(patient)
                         }
                         else{
                             return new Error('Invalid login credentials.');
